@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    
+    <!--/*/ <th:block th:insert="~{top :: top}"></th:block> /*/-->
+
+    <body>
+
+        <div class="container">
+
+            <!--/*/ <th:block th:insert="~{header :: header}"></th:block> /*/-->
+
+            <h2>Cliente</h2>
+            <div>
+                <form class="form-horizontal" th:object="${entity}" th:action="@{/clientes}" method="post">
+                    <input type="hidden" th:field="*{id}"/>                                
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Apellido</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{apellido}"/>
+                        </div>                       
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Direccion</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{direccion}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{email}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{nombre}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Numero documento</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{nrodoc}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Telefono</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{telefono}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2 control-label">
+                            <label align="right" >Tipos Documentos</label>
+                        </div>
+                        <div class="col-sm-10">
+                            <select  class="form-control" th:field="${entity.tipodoc}" >
+                                <option th:each="tipodoc : ${tiposdoc}"
+                                        th:value="${tipodoc.id}"
+                                        th:text="${tipodoc.descrip}"/>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2 control-label">
+                            <label align="right" >Usuarios</label>
+                        </div>
+                        <div class="col-sm-10">
+                            <select  class="form-control" th:field="${entity.usuario}" >
+                                <option th:each="usuario : ${usuarios}"
+                                        th:value="${usuario.id}"
+                                        th:text="${usuario.username}"/>
+                            </select>
+                        </div>
+                    </div>
+                                        
+                    <div class="row">
+                        <button type="submit" class="btn btn-success">Guardar</button>                        
+                        <a class="btn btn-default" th:href="${'/practico2/clientes'}">Cancelar</a>
+                    </div>
+                    <h5 style="color:red;" th:text="${message}"></h5>
+                </form>
+            </div>
+
+        </div>
+
+    </body>
+</html>

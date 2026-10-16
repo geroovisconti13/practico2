@@ -1,0 +1,246 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--/*/ <th:block th:insert="~{top :: top}"></th:block> /*/-->
+
+<body>
+
+<div class="container">
+
+    <!--/*/ <th:block th:insert="~{header :: header}"></th:block> /*/-->
+
+    <h2>Reclamos</h2>
+
+    <div>
+
+        <form class="form-horizontal"
+              th:object="${entity}"
+              th:action="@{/reclamos}"
+              method="post">
+
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="form-group">
+
+                <label class="col-sm-2 control-label">
+                    Asunto
+                </label>
+
+                <div class="col-sm-10">
+
+                    <input type="text"
+                           class="form-control"
+                           th:field="*{asunto}"/>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label class="col-sm-2 control-label">
+                    Fecha
+                </label>
+
+                <div class="col-sm-10">
+
+                    <input type="date"
+                           class="form-control"
+                           th:field="*{fecha}"/>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label class="col-sm-2 control-label">
+                    Fecha Hora
+                </label>
+
+                <div class="col-sm-10">
+
+                    <input type="datetime-local"
+                           class="form-control"
+                           th:field="*{fechahora}"/>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label class="col-sm-2 control-label">
+                    Finalizado
+                </label>
+
+                <div class="col-sm-10">
+
+                    <input type="checkbox"
+                           th:field="*{finalizado}"/>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label class="col-sm-2 control-label">
+                    Mensaje
+                </label>
+
+                <div class="col-sm-10">
+
+                    <textarea class="form-control"
+                              th:field="*{mensaje}">
+                    </textarea>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label class="col-sm-2 control-label">
+                    Observaciones
+                </label>
+
+                <div class="col-sm-10">
+
+                    <textarea class="form-control"
+                              th:field="*{observacion}">
+                    </textarea>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label class="col-sm-2 control-label">
+                    Cliente
+                </label>
+
+                <div class="col-sm-10">
+
+                    <select class="form-control"
+                            th:field="*{cliente}">
+
+                        <option value="">
+                            Seleccione un cliente
+                        </option>
+
+                        <option th:each="cliente : ${clientes}"
+                                th:value="${cliente.id}"
+                                th:text="${cliente.nombre + ' ' + cliente.apellido}">
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label class="col-sm-2 control-label">
+                    Cliente Servicio Contrato
+                </label>
+
+                <div class="col-sm-10">
+
+                    <select class="form-control"
+                            th:field="*{clienteserviciocontrato}">
+
+                        <option value="">
+                            Seleccione un servicio contratado
+                        </option>
+
+                        <option th:each="contrato : ${clienteserviciocontrato}"
+                                th:value="${contrato.id}">
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label class="col-sm-2 control-label">
+                    Reclamo Estado
+                </label>
+
+                <div class="col-sm-10">
+
+                    <select class="form-control"
+                            th:field="*{reclamosestado}">
+
+                        <option value="">
+                            Seleccione un estado
+                        </option>
+
+                        <option th:each="estado : ${reclamosestados}"
+                                th:value="${estado.id}"
+                                th:text="${estado.descrip}">
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label class="col-sm-2 control-label">
+                    Motivo Reclamo
+                </label>
+
+                <div class="col-sm-10">
+
+                    <select class="form-control"
+                            th:field="*{motivosreclamos}">
+
+                        <option value="">
+                            Seleccione un motivo
+                        </option>
+
+                        <option th:each="motivo : ${motivosreclamos}"
+                                th:value="${motivo.id}"
+                                th:text="${motivo.descrip}">
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <button type="submit"
+                        class="btn btn-success">
+                    Guardar
+                </button>
+
+                <a class="btn btn-default"
+                   th:href="@{/reclamos}">
+                    Cancelar
+                </a>
+
+            </div>
+
+            <h5 style="color:red;"
+                th:text="${message}">
+            </h5>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

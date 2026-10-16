@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+
+    </head>
+    <body>
+
+        <div class="container">
+            <div th:fragment="header">
+
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="/practico2">ESTUDIOS</a>
+                        </div>
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="/practico2">Home</a></li>
+
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">General
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" th:href="@{/roles}">Roles</a></li>
+                                    <li><a href="#" th:href="@{/usuarios}">Usuarios</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Archivo
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" th:href="@{/tiposdoc}">Tipos Documentos</a></li>
+                                    <li><a href="#" th:href="@{/servicios}">Servicios</a></li>
+                                    <li><a href="#" th:href="@{/clientes}">Clientes</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Sistema
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" th:href="@{/motivosreclamos}">Motivos Reclamos</a></li>
+                                    <li><a href="#" th:href="@{/reclamosestados}">Reclamos Estados</a></li>
+                                </ul>
+                            </li>
+
+
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Otros
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" th:href="@{/clienteserviciocontrato}">Cliente Servicio Contrato</a></li>
+                                    <li><a href="#" th:href="@{/reclamos}">Reclamos</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+    </body>
+</html>
