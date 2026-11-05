@@ -3,12 +3,12 @@ package ar.com.practico2.controller;
 
 import java.util.List;
 
-import ar.com.practico2.dao.IClienteServicioContratoDao;
-import ar.com.practico2.dao.IReclamosDao;
 import ar.com.practico2.entities.*;
+import ar.com.practico2.service.IClienteServicioContratoService;
 import ar.com.practico2.service.IClientesService;
 import ar.com.practico2.service.IMotivosReclamosService;
 import ar.com.practico2.service.IReclamosEstadosService;
+import ar.com.practico2.service.IReclamosService;
 import ar.com.practico2.utiles.PageWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,11 +24,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ReclamosController {
 
     @Autowired
-    IReclamosDao entityDao;
+    IReclamosService entityService;
     @Autowired
     IClientesService clienteService;
     @Autowired
-    IClienteServicioContratoDao clienteserviciocontratoDao;
+    IClienteServicioContratoService clienteserviciocontratoService;
     @Autowired
     IReclamosEstadosService reclamosestadosService;
     @Autowired
@@ -36,7 +36,7 @@ public class ReclamosController {
 
     @RequestMapping(value = "/reclamos", method = RequestMethod.GET)
     public String list(Model model, Pageable pageable) {
-        Page<Reclamos> centroPage = entityDao.findAll(pageable);
+        Page<Reclamos> centroPage = entityService.findAll(pageable);
         PageWrapper<Reclamos> page = new PageWrapper<Reclamos>(centroPage, "/reclamos");
 
         model.addAttribute("entities", page.getContent());
@@ -51,6 +51,17 @@ public class ReclamosController {
         return "redirect:/reclamos";
     }
 
+    @RequestMapping(value = "/reclamos/search", method = RequestMethod.POST)
+    public String search(Model model, Reclamos entity) {
+        if (entity.getAsunto() == null || entity.getAsunto().trim().isEmpty()) {
+            return refresh();
+        }
+        model.addAttribute("entities", entityService.findByAsunto(entity.getAsunto().trim()));
+        model.addAttribute("entity", new Reclamos());
+        model.addAttribute("page", null);
+        return "../reclamos/index";
+    }
+
     @RequestMapping("/reclamos/create/{id}")
     public String create( Model model) {
 
@@ -59,7 +70,7 @@ public class ReclamosController {
         List<Clientes> lista = clienteService.getAll();
         model.addAttribute("clientes", lista);
 
-        List<ClienteServicioContrato> clienteserviciocontrato = clienteserviciocontratoDao.findAll();
+        List<ClienteServicioContrato> clienteserviciocontrato = clienteserviciocontratoService.getAll();
         model.addAttribute("clienteserviciocontrato", clienteserviciocontrato);
 
         List<ReclamosEstados> reclamosestados = reclamosestadosService.getAll();
@@ -74,13 +85,13 @@ public class ReclamosController {
     @RequestMapping("/reclamos/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
 
-        Reclamos entity = entityDao.findById(id).orElse(null);
+        Reclamos entity = entityService.get(id);
         model.addAttribute("entity", entity);
 
         List<Clientes> lista = clienteService.getAll();
         model.addAttribute("clientes", lista);
 
-        List<ClienteServicioContrato> clienteserviciocontrato = clienteserviciocontratoDao.findByCliente(entity.getCliente());
+        List<ClienteServicioContrato> clienteserviciocontrato = clienteserviciocontratoService.findByCliente(entity.getCliente());
         model.addAttribute("clienteserviciocontrato", clienteserviciocontrato);
 
         List<ReclamosEstados> reclamosestados = reclamosestadosService.getAll();
@@ -95,7 +106,7 @@ public class ReclamosController {
     @RequestMapping(value = "reclamos", method = RequestMethod.POST)
     public String save(Model model, @Validated Reclamos entity) {
 
-        entityDao.save(entity);
+        entityService.save(entity);
 
         return "redirect:/reclamos";
     }
@@ -103,14 +114,14 @@ public class ReclamosController {
     @RequestMapping("/reclamos/delete/{id}")
     public String delete(@PathVariable Integer id, Model model, Pageable pageable) {
         try {
-            Reclamos entity = entityDao.findById(id).orElse(null);
+            Reclamos entity = entityService.get(id);
             if (entity != null) {
-                entityDao.delete(entity);
+                entityService.delete(entity);
             }
             return "redirect:/reclamos";
         } catch (Exception e) {
             model.addAttribute("message", e.getMessage());
-            Page<Reclamos> centroPage = entityDao.findAll(pageable);
+            Page<Reclamos> centroPage = entityService.findAll(pageable);
             PageWrapper<Reclamos> page =
                     new PageWrapper<Reclamos>(centroPage, "/reclamos");
             model.addAttribute("entities", page.getContent());

@@ -73,7 +73,7 @@ public class ClientesController {
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("entity", entityService.get(id));
         List<TiposDoc> lista = tipodocService.getAll();
-        model.addAttribute("tipodoc", lista);
+        model.addAttribute("tiposdoc", lista);
         List<Usuarios> list = usuariosService.getAll();
         model.addAttribute("usuarios", list);
         return "../clientes/edit";

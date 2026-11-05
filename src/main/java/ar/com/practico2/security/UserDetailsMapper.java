@@ -16,6 +16,11 @@ public class UserDetailsMapper {
 
     private static Set<? extends GrantedAuthority> getAuthorities(Usuarios retrievedUser) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+
+        if (retrievedUser.getRol() != null && retrievedUser.getRol().getDescrip() != null) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + retrievedUser.getRol().getDescrip().trim()));
+        }
+
         return authorities;
     }
 }

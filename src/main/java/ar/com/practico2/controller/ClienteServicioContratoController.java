@@ -3,8 +3,8 @@ package ar.com.practico2.controller;
 
 import java.util.List;
 
-import ar.com.practico2.dao.IClienteServicioContratoDao;
 import ar.com.practico2.entities.*;
+import ar.com.practico2.service.IClienteServicioContratoService;
 import ar.com.practico2.service.IClientesService;
 import ar.com.practico2.service.IServiciosService;
 import ar.com.practico2.utiles.PageWrapper;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ClienteServicioContratoController {
 
     @Autowired
-    IClienteServicioContratoDao entityDao;
+    IClienteServicioContratoService entityService;
     @Autowired
     IClientesService clienteService;
     @Autowired
@@ -30,7 +30,7 @@ public class ClienteServicioContratoController {
 
     @RequestMapping(value = "/clienteserviciocontrato", method = RequestMethod.GET)
     public String list(Model model, Pageable pageable) {
-        Page<ClienteServicioContrato> centroPage = entityDao.findAll(pageable);
+        Page<ClienteServicioContrato> centroPage = entityService.findAll(pageable);
         PageWrapper<ClienteServicioContrato> page = new PageWrapper<ClienteServicioContrato>(centroPage, "/clienteserviciocontrato");
 
         model.addAttribute("entities", page.getContent());
@@ -62,7 +62,8 @@ public class ClienteServicioContratoController {
     @RequestMapping("/clienteserviciocontrato/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
 
-        ClienteServicioContrato entity = entityDao.findById(id).orElse(null);
+        ClienteServicioContrato entity = entityService.get(id);
+        model.addAttribute("entity", entity);
 
         List<Clientes> lista = clienteService.getAll();
         model.addAttribute("clientes", lista);
@@ -76,7 +77,7 @@ public class ClienteServicioContratoController {
     @RequestMapping(value = "clienteserviciocontrato", method = RequestMethod.POST)
     public String save(Model model, @Validated ClienteServicioContrato entity) {
 
-        entityDao.save(entity);
+        entityService.save(entity);
 
         return "redirect:/clienteserviciocontrato";
     }
@@ -84,14 +85,14 @@ public class ClienteServicioContratoController {
     @RequestMapping("/clienteserviciocontrato/delete/{id}")
     public String delete(@PathVariable Integer id, Model model, Pageable pageable) {
         try {
-            ClienteServicioContrato entity = entityDao.findById(id).orElse(null);
+            ClienteServicioContrato entity = entityService.get(id);
             if (entity != null) {
-                entityDao.delete(entity);
+                entityService.delete(entity);
             }
             return "redirect:/clienteserviciocontrato";
         } catch (Exception e) {
             model.addAttribute("message", e.getMessage());
-            Page<ClienteServicioContrato> centroPage = entityDao.findAll(pageable);
+            Page<ClienteServicioContrato> centroPage = entityService.findAll(pageable);
             PageWrapper<ClienteServicioContrato> page =
                     new PageWrapper<ClienteServicioContrato>(centroPage, "/clienteserviciocontrato");
             model.addAttribute("entities", page.getContent());

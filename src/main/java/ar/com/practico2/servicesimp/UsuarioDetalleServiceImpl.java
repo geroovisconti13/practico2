@@ -24,7 +24,7 @@ public class UsuarioDetalleServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("Usuario o Password Inválido(s)");
         }
 
-        if (retrievedUser.getInactivo()) {
+        if (Boolean.TRUE.equals(retrievedUser.getInactivo())) {
             throw new UsernameNotFoundException("Usuario Inhabilitado");
         }
 

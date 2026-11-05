@@ -157,7 +157,8 @@
                         </option>
 
                         <option th:each="contrato : ${clienteserviciocontrato}"
-                                th:value="${contrato.id}">
+                                th:value="${contrato.id}"
+                                th:text="${contrato.cliente.nombre + ' ' + contrato.cliente.apellido + ' - ' + contrato.servicio.descrip}">
                         </option>
 
                     </select>

@@ -37,6 +37,9 @@ public class RolesService implements IRolesService {
 
     @Transactional
     public void save(Roles entity) {
+        if (entity.getNivel() == null) {
+            entity.setNivel(3);
+        }
         entityDao.save(entity);
     }
 

@@ -23,9 +23,9 @@ CREATE TABLE IF NOT EXISTS `roles` (
 -- Volcando datos para la tabla estudiocs.roles: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
 INSERT INTO `roles` (`id`, `descrip`, `nivel`) VALUES
-                                                   (1, 'Administrador', 1),
-                                                   (2, 'Usuarios', 3),
-                                                   (4, 'Invitado', 2);
+    (1, 'Administrador', 1),
+    (2, 'Usuarios', 3),
+    (4, 'Invitado', 2);
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
 -- Volcando estructura para tabla estudiocs.usuarios
@@ -45,8 +45,8 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 -- Volcando datos para la tabla estudiocs.usuarios: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 INSERT INTO `usuarios` (`id`, `pass`, `usuario`, `fk_rol`, `inactivo`, `pass_orig`) VALUES
-                                                                                        (1, '$2a$10$4gI1zMTR77qlYs/AYUHVauJ3pz8ILVWo3C7cEusm8E9WY.j24Yz86', 'admin', 1, b'0', 'Jakarta89'),
-                                                                                        (2, '$2a$10$09ADcqNz3vvTmd4uBnt8ouFy/6ruIgqh1QjmoPcYRaCgtiHmDcKUW', 'terminal1', 2, b'0', 'terminal1');
+    (1, '$2a$10$4gI1zMTR77qlYs/AYUHVauJ3pz8ILVWo3C7cEusm8E9WY.j24Yz86', 'admin', 1, b'0', 'Jakarta89'),
+    (2, '$2a$10$09ADcqNz3vvTmd4uBnt8ouFy/6ruIgqh1QjmoPcYRaCgtiHmDcKUW', 'terminal1', 2, b'0', 'terminal1');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

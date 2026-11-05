@@ -11,6 +11,7 @@ public class Roles implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String descrip;
+    private Integer nivel;
 
     public Integer getId() {
         return id;
@@ -26,5 +27,13 @@ public class Roles implements Serializable {
 
     public void setDescrip(String descrip) {
         this.descrip = descrip;
+    }
+
+    public Integer getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(Integer nivel) {
+        this.nivel = nivel;
     }
 }

@@ -16,25 +16,17 @@
 
                 <div class="col-sm-5">
 
-                    <form class="form-horizontal" th:object="${entity}" th:action="@{/clienteserviciocontrato/search}" method="post">
-                        <div class="row">
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" th:field="*{fechaalta}"/>
-                            </div>
-                        </div>
-                    </form>
+                </div>
+                    <div class="col-sm-1">
+                        <a class="btn btn-info" th:href="${'/practico2/clienteserviciocontrato'}">Refrescar</a>
+                    </div>
+                    <div class="col-sm-1">
+                        <a class="btn btn-default" th:href="${'/practico2/clienteserviciocontrato/create'}">Nuevo</a>
+                    </div>
+                    <div class="col-sm-11">
+                        <h5 style="color:red;" th:text="${message}"></h5>
+                    </div>
 
-
-                </div>
-                <div class="col-sm-1">                    
-                    <a class="btn btn-info" th:href="${'/practico2/clienteserviciocontrato'}">Refrescar</a>
-                </div>
-                <div class="col-sm-1">
-                    <a class="btn btn-default" th:href="${'/practico2/clienteserviciocontrato/create'}">Nuevo</a>
-                </div>
-                <div class="col-sm-11">
-                    <h5 style="color:red;" th:text="${message}"></h5>
-                </div>             
             </div>
 
             <br/>
